@@ -1,56 +1,15 @@
-import fs from "fs/promises";
-import path from "path";
-import { nanoid } from "nanoid";
+import LinkCard from "../models/LinkCard.js";
 
-const linksPath = path.resolve("db", "links.json");
-
-const updCards = (linkCards) =>
-  fs.writeFile(linksPath, JSON.stringify(linkCards, null, 2));
-
-export const getAllLinkCards = async () => {
-  const data = await fs.readFile(linksPath);
-  return JSON.parse(data);
-};
+export const getAllLinkCards = () => LinkCard.find({}, "-createdAt -updatedAt");
 
 export const getLinksById = async (id) => {
-  const linkCards = await getAllLinkCards();
-  const result = linkCards.find((item) => item.id === id);
-
-  return result || "Sorry, but card not found";
+  const data = await LinkCard.findById(id);
+  return data;
 };
 
-export const addLinkCard = async (data) => {
-  const linkCards = await getAllLinkCards();
-  const newCard = {
-    id: nanoid(),
-    ...data,
-  };
-  linkCards.push(newCard);
-  await updCards(linkCards);
+export const addLinkCard = (data) => LinkCard.create(data);
 
-  return newCard;
-};
+export const updateCardById = (id, data) =>
+  LinkCard.findByIdAndUpdate(id, data, { new: true, runValidators: true });
 
-export const updateCardById = async (id, data) => {
-  const linkCards = await getAllLinkCards();
-  const index = linkCards.findIndex((item) => item.id === id);
-  if (index === -1) {
-    return null;
-  }
-  linkCards[index] = { ...linkCards[index], ...data };
-  await updCards(linkCards);
-
-  return linkCards[index];
-};
-
-export const deleteCardById = async (id) => {
-  const linkCards = await getAllLinkCards();
-  const index = linkCards.findIndex((item) => item.id === id);
-  if (index === -1) {
-    return null;
-  }
-  const [result] = linkCards.splice(index, 1);
-  await updCards(linkCards);
-
-  return result;
-};
+export const deleteCardById = (id) => LinkCard.findByIdAndDelete(id);

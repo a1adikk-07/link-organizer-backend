@@ -1,16 +1,35 @@
 import express from "express";
+
 import LinkCardsControllers from "../controllers/LinkCardsControllers.js";
+
+import {
+  createLinkCardsSchema,
+  updateLinkCardsSchema,
+} from "../schemas/LinkCardsSchemas.js";
+
+import validateBody from "../decorators/validateBody.js";
+
+import isValidId from "../middlewares/isValidId.js";
 
 const LinkCardsRouter = express.Router();
 
 LinkCardsRouter.get("/", LinkCardsControllers.getAll);
 
-LinkCardsRouter.get("/:id", LinkCardsControllers.getById);
+LinkCardsRouter.get("/:id", isValidId, LinkCardsControllers.getById);
 
-LinkCardsRouter.post("/", LinkCardsControllers.add);
+LinkCardsRouter.post(
+  "/",
+  validateBody(createLinkCardsSchema),
+  LinkCardsControllers.add
+);
 
-LinkCardsRouter.put("/:id", LinkCardsControllers.updateById);
+LinkCardsRouter.put(
+  "/:id",
+  isValidId,
+  validateBody(updateLinkCardsSchema),
+  LinkCardsControllers.updateById
+);
 
-LinkCardsRouter.delete("/:id", LinkCardsControllers);
+LinkCardsRouter.delete("/:id", isValidId, LinkCardsControllers.deleteById);
 
 export default LinkCardsRouter;
