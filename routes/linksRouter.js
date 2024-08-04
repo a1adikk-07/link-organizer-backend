@@ -11,7 +11,11 @@ import validateBody from "../decorators/validateBody.js";
 
 import isValidId from "../middlewares/isValidId.js";
 
+import authenticate from "../middlewares/authenticate.js";
+
 const LinkCardsRouter = express.Router();
+
+LinkCardsRouter.use(authenticate);
 
 LinkCardsRouter.get("/", LinkCardsControllers.getAll);
 

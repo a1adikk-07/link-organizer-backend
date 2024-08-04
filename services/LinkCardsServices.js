@@ -1,15 +1,18 @@
 import LinkCard from "../models/LinkCard.js";
 
-export const getAllLinkCards = () => LinkCard.find({}, "-createdAt -updatedAt");
+export const getAllLinkCards = (filter = {}, setting = {}) =>
+  LinkCard.find(filter, "-createdAt -updatedAt", setting).populate(
+    "owner",
+    "username email"
+  );
 
-export const getLinksById = async (id) => {
-  const data = await LinkCard.findById(id);
-  return data;
-};
+export const countLinkCards = (filter) => LinkCard.countDocuments(filter);
 
 export const addLinkCard = (data) => LinkCard.create(data);
 
-export const updateCardById = (id, data) =>
-  LinkCard.findByIdAndUpdate(id, data, { new: true, runValidators: true });
+export const getLinksByFilter = (filter) => LinkCard.findOne(filter);
 
-export const deleteCardById = (id) => LinkCard.findByIdAndDelete(id);
+export const updateCardByFilter = (filter, data) =>
+  LinkCard.findOneAndUpdate(filter, data);
+
+export const deleteCardByFilter = (filter) => LinkCard.findOneAndDelete(filter);

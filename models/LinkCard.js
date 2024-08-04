@@ -31,6 +31,11 @@ const linkCardSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -39,7 +44,7 @@ linkCardSchema.post("save", handleSaveError);
 
 linkCardSchema.pre("findOneAndUpdate", setUpdateSetting);
 
-linkCardSchema.pre("findOneAndUpdate", handleSaveError);
+linkCardSchema.post("findOneAndUpdate", handleSaveError);
 
 const LinkCard = model("link-card", linkCardSchema);
 
