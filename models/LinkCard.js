@@ -27,6 +27,12 @@ const linkCardSchema = new Schema(
     thirdLink: {
       type: String,
     },
+    fourthLinkName: {
+      type: String,
+    },
+    fourthLink: {
+      type: String,
+    },
     favorite: {
       type: Boolean,
       default: false,
