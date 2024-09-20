@@ -8,6 +8,7 @@ export const createLinkCardsSchema = Joi.object({
   secondLink: Joi.string(),
   thirdLinkName: Joi.string(),
   thirdLink: Joi.string(),
+  favorite: Joi.boolean(),
 });
 
 export const updateLinkCardsSchema = Joi.object({
@@ -18,4 +19,5 @@ export const updateLinkCardsSchema = Joi.object({
   secondLink: Joi.string(),
   thirdLinkName: Joi.string(),
   thirdLink: Joi.string(),
+  favorite: Joi.boolean(),
 });

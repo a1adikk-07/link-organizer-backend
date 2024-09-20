@@ -2,7 +2,7 @@ import * as LinkCardsService from "../services/LinkCardsServices.js";
 import HttpError from "../helpers/HttpError.js";
 
 import ctrlWrapper from "../decorators/ctrlWrapper.js";
-import LinkCard from "../models/LinkCard.js";
+// import LinkCard from "../models/LinkCard.js";
 
 const getAll = async (req, res) => {
   const { _id: owner } = req.user;
@@ -75,11 +75,3 @@ export default {
   updateById: ctrlWrapper(updateById),
   deleteById: ctrlWrapper(deleteById),
 };
-
-//  {
-// "title": "Dubliat",
-// "firstNameLink": "lesson",
-// "firstLink": "https://www.edu.goit.global/uk/learn/11043889/2439558/2439561/lessons",
-// "secondNameLink": "repository",
-// "secondLink": "https://github.com/a1adikk-07/link-organizer-backend"
-// }
