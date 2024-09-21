@@ -7,7 +7,7 @@ import "dotenv/config";
 import authRouter from "./routes/authRouter.js";
 import LinkCardsRouter from "./routes/linksRouter.js";
 
-const { DB_HOST, PORT = 3001 } = process.env;
+const { DB_HOST, PORT = 4000 } = process.env;
 
 const app = express();
 
