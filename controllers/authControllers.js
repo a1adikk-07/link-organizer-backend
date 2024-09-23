@@ -25,9 +25,14 @@ const signup = async (req, res) => {
     password: hashPassword,
   });
 
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "48h" });
+
+  await authServices.updateUser({ _id: id }, { token });
+
   res.status(201).json({
     username: newUser.username,
     email: newUser.email,
+    token,
   });
 };
 
