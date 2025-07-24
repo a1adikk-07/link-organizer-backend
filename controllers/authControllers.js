@@ -31,8 +31,10 @@ const signup = async (req, res) => {
   await authServices.updateUser({ _id: id }, { token });
 
   res.status(201).json({
-    username: newUser.username,
-    email: newUser.email,
+    user: {
+      username: newUser.username,
+      email: newUser.email,
+    },
     token
   });
 };
