@@ -53,7 +53,7 @@ const singin = async (req, res) => {
     throw HttpError(401, "Password invalid");
   }
 
-  const { _id: id } = user;
+  const { _id: id, username } = user;
 
   const payload = {
     id,
@@ -65,6 +65,7 @@ const singin = async (req, res) => {
 
   res.json({
     token,
+    user: {username, email}
   });
 };
 
@@ -72,8 +73,10 @@ const getCurrent = async (req, res) => {
   const { username, email } = req.user;
 
   res.json({
-    username,
-    email,
+    user: {
+      username,
+      email,
+    }
   });
 };
 
