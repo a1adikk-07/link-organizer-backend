@@ -83,11 +83,9 @@ const getCurrent = async (req, res) => {
 const signout = async (req, res) => {
   const { _id } = req.user;
 
-  await authServices.updateUser({ _id }, { token: "" });
+  await authServices.updateUser({ _id }, { token: null });
 
-  res.json({
-    message: "Signout success",
-  });
+  res.status(204).send();
 };
 
 export default {
